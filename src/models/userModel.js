@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     name:{
     type:String,
     required:[true,"Name is Required"],
@@ -17,7 +17,8 @@ const userSchema = mongoose.Schema({
     password:{
         type:String,
         required:[true,"Password is Required"],
-        minLength:[8,"Your Password Should be more than 8 characters"]
+        minLength: [6, "Password should be at least 6 characters long"],
+        maxLength: [20, "Password should not exceed 20 characters"],
     }
 })
 
