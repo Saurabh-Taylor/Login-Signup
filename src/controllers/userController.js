@@ -7,7 +7,7 @@ export const home = (req,res) =>{
     res.send("Welcome To PW Skills!")
 }
 
-export const createuser  = async(req,res)=>{
+export const register  = async(req,res)=>{
     try {
 
         const {name,email,password} = req.body
@@ -29,6 +29,41 @@ export const createuser  = async(req,res)=>{
 
     } catch (error) {
         console.log(error);
+        res.status(400).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+export const login = async(req,res)=>{
+    try {
+        const {email,password} = req.body
+
+        const user  = await User.findOne({email})
+
+        if(!user){
+            res.json({
+                message:"No account associate with this email"
+            })
+        }
+
+        if(password ===user.password){
+            res.status(200).json({
+                message:"User Login Successfully"
+            })
+        } else{
+            res.json({
+                message:"Password is Incorrect"
+            })
+        }
+
+        
+
+        
+
+    } catch (error) {
+        console.log(error)
         res.status(400).json({
             success:false,
             message:error.message
